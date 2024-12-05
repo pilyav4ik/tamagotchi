@@ -47,18 +47,21 @@ export const useScoreStore = defineStore('score', {
     level: (state) => computeLevelByScore(state.score),
     currentScore(state) {
       if (this.level.level === 0) {
-        return state.score
+        return state.score;
       }
-      return state.score - levelScores[this.level.level - 1]
+      return state.score - levelScores[this.level.level - 1];
     },
   },
   actions: {
     add(score = 1) {
-      this.score += score
-      debouncedUpdateScore(this.score)
+      this.score += score;
+      debouncedUpdateScore(this.score);
     },
     setScore(score) {
-      this.score = score
+      this.score = score;
+    },
+    startAutoIncrement() {
+      this.autoIncrementInterval = this.add(1); // Increase the score by 1 every minute
     },
   },
-})
+});
