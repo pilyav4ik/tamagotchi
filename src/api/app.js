@@ -80,3 +80,39 @@ export async function completeTask(user, task) {
     })
     .eq('telegram', MY_ID)
 }
+
+export async function saveTimers(userId, timers) {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ timers })
+      .eq('id', userId);
+
+    if (error) {
+      console.error('Error saving timers:', error);
+      throw error;
+    }
+    return data;
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
+}
+
+export async function fetchTimers(userId) {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('timers')
+      .eq('id', userId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching timers:', error);
+      throw error;
+    }
+    return data.timers;
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    return null;
+  }
+}
