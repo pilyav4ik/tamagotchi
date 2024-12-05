@@ -6,7 +6,22 @@
       <h2 class="score" id="score">{{ store.score }}</h2>
     </div>
     <div class="circle">
-      <img @click="increment" ref="img" id="circle" :src="imgSrc" />
+      <img ref="img" id="circle" :src="imgSrc" />
+    </div>
+
+    <div class="button-game">
+      <span 
+        :class="{ disabled: !isEatClickable, enable: isEatClickable }" 
+        @click="eat"
+      >
+        {{ eatTimer > 0 ? eatTimer : "Eat" }}
+      </span>
+      <span 
+        :class="{ disabled: !isWalkClickable, enable: isWalkClickable }" 
+        @click="walk"
+      >
+        {{ walkTimer > 0 ? walkTimer : "Walk" }}
+      </span>
     </div>
   </div>
 </template>
@@ -19,38 +34,71 @@ import frog from '@/assets/frog.png'
 import lizard from '@/assets/lizzard.png'
 
 const img = ref(null)
-const imgSrc = computed(() => (store.score > 25 ? lizard : frog))
-
 const store = useScoreStore()
 
-function increment(event) {
-  store.add(1)
-  const rect = event.target.getBoundingClientRect()
+const imgSrc = computed(() => (store.score > 25 ? lizard : frog))
 
-  const offfsetX = event.clientX - rect.left - rect.width / 2
-  const offfsetY = event.clientY - rect.top - rect.height / 2
+const tapCoast = 1
 
-  const DEG = 40
+let isEatClickable = true; // Flag for Eat
+let isWalkClickable = true; // Flag for Walk
 
-  const tiltX = (offfsetY / rect.height) * DEG
-  const tiltY = (offfsetX / rect.width) * -DEG
+const eatTimer = ref(0); // Flag for Eat
+const walkTimer = ref(0); // Flag for Walk
 
-  img.value.style.setProperty('--tiltX', `${tiltX}deg`)
-  img.value.style.setProperty('--tiltY', `${tiltY}deg`)
+function startTimer(timerRef, duration, callback) {
+  timerRef.value = duration;
+  const interval = setInterval(() => {
+    timerRef.value -= 1;
+    if (timerRef.value <= 0) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 1000);
+}
 
-  setTimeout(() => {
-    img.value.style.setProperty('--tiltX', `0deg`)
-    img.value.style.setProperty('--tiltY', `0deg`)
-  }, 300)
 
-  const plusOne = document.createElement('div')
-  plusOne.classList.add('plus-one')
-  plusOne.textContent = '+1'
-  plusOne.style.left = `${event.clientX - rect.left}px`
-  plusOne.style.top = `${event.clientY - rect.top}px`
 
-  img.value.parentElement.appendChild(plusOne)
+function eat() {
+  if (!isEatClickable) return;
 
-  setTimeout(() => plusOne.remove(), 2000)
+  isEatClickable = false;
+  store.add(tapCoast);
+
+  startTimer(eatTimer, 6, () => {
+    isEatClickable = true;
+  });
+}
+
+function walk() {
+  if (!isWalkClickable) return;
+
+  isWalkClickable = false;
+  store.add(tapCoast + 2);
+
+  startTimer(walkTimer, 600, () => {
+    isWalkClickable = true;
+  });
 }
 </script>
+
+<style>
+.button-game {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.disabled {
+  color: gray;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.enable {
+  color: antiquewhite;
+}
+
+.walk, .eat {
+  color: white;
+}
+</style>

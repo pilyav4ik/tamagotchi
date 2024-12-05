@@ -11,14 +11,15 @@ export async function fetchTasks() {
   return data
 }
 
-export async function getOrCreateUser() {
-  const pontentialUser = await supabase
+export async function getOrCreateUser(refId = null, userName = null) {
+  // Check if the user exists
+  const { data: potentialUser } = await supabase
     .from('users')
     .select()
-    .eq('telegram', MY_ID)
+    .eq('telegram', MY_ID);
 
-  if (pontentialUser.data.length !== 0) {
-    return pontentialUser.data[0]
+  if (potentialUser.length !== 0) {
+    return potentialUser[0];
   }
 
   const newUser = {
@@ -26,10 +27,26 @@ export async function getOrCreateUser() {
     friends: {},
     tasks: {},
     score: 0,
+  };
+
+  const { data: createdUser, error } = await supabase
+    .from('users')
+    .insert(newUser)
+    .select();
+
+  if (error) {
+    console.error("Error creating user:", error);
+    return null;
   }
 
-  await supabase.from('users').insert(newUser)
-  return newUser
+  const user = createdUser[0];
+
+  // If a referral ID is specified, register the referral
+  if (refId && userName) {
+    await registerRef(userName, refId);
+  }
+
+  return user;
 }
 
 export async function updateScore(score) {

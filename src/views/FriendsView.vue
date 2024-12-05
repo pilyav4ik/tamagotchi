@@ -27,7 +27,7 @@ const { user } = useTelegram()
 
 const referalText = ref('Your referal')
 
-// {42: 'Vladilen'}
+
 const friends = computed(() =>
   Object.keys(app.user.friends).map((id) => ({
     id,
@@ -37,7 +37,7 @@ const friends = computed(() =>
 
 function copy() {
   navigator.clipboard.writeText(
-    'https://t.me/LizardClickerProBot?start=' + user?.id
+    'https://t.me/tamagotchicrypto_bot?start=' + user?.id
   )
   referalText.value = 'Copied!'
 }
