@@ -22,11 +22,17 @@ export async function getOrCreateUser(refId = null, userName = null) {
     return potentialUser[0];
   }
 
+  const defaultTimers = {
+    eat: { startTime: null, remaining: 0 },
+    walk: { startTime: null, remaining: 0 },
+  };
+
   const newUser = {
     telegram: MY_ID,
     friends: {},
     tasks: {},
     score: 0,
+    timers: defaultTimers,
   };
 
   const { data: createdUser, error } = await supabase
@@ -81,8 +87,49 @@ export async function completeTask(user, task) {
     .eq('telegram', MY_ID)
 }
 
-export async function updateTimers(timers) {
-  await supabase.from('users').update({ timers }).eq('telegram', MY_ID);
+export async function saveTimers(userId, timers) {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ timers })
+      .eq('id', userId);
+
+    if (error) {
+      console.error('Error saving timers:', error);
+      throw error;
+    }
+    return data;
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
+}
+
+export async function updateTimers(newTimerData) {
+  try {
+
+    const currentTimers = await fetchUserTimers();
+
+    // Update only the changed values
+    const updatedTimers = {
+      ...currentTimers,
+      ...newTimerData,
+    };
+
+    // Save the updated timers back to the database
+    const { data, error } = await supabase
+      .from('users')
+      .update({ timers: updatedTimers })
+      .eq('telegram', MY_ID);
+
+    if (error) {
+      console.error('Error updating timers:', error);
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Unexpected error during timers update:', err);
+  }
 }
 
 export async function fetchUserTimers() {

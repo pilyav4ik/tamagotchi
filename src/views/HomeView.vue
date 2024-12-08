@@ -48,19 +48,11 @@ async function startTimer(timerRef, duration, isClickableRef, type) {
   const startTime = Date.now();
   const remainingTime = duration * 1000;
 
-  // Get the current timers object from the database
-  const currentTimers = await fetchUserTimers();
-
-  // Update only the required field (type: 'eat' or 'walk')
-  const updatedTimers = {
-    ...currentTimers,
+  // Update timers
+  await updateTimers({
     [type]: { startTime, remaining: remainingTime },
-  };
+  });
 
-  // Updating the database
-  await updateTimers(updatedTimers);
-
-  // Local timer update
   timerRef.value = duration;
   isClickableRef.value = false;
 
