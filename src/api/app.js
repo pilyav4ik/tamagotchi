@@ -12,7 +12,6 @@ export async function fetchTasks() {
 }
 
 export async function getOrCreateUser(refId = null, userName = null) {
-  // Check if the user exists
   const { data: potentialUser } = await supabase
     .from('users')
     .select()
@@ -22,17 +21,17 @@ export async function getOrCreateUser(refId = null, userName = null) {
     return potentialUser[0];
   }
 
-  const defaultTimers = {
-    eat: { startTime: null, remaining: 0 },
-    walk: { startTime: null, remaining: 0 },
-  };
-
   const newUser = {
     telegram: MY_ID,
     friends: {},
     tasks: {},
     score: 0,
-    timers: defaultTimers,
+    pet: {
+      id: null,
+      name: null,
+      type: null
+    }, // Питомец добавляется как null
+    timers: { eat: { startTime: null, remaining: 0 }, walk: { startTime: null, remaining: 0 } },
   };
 
   const { data: createdUser, error } = await supabase
@@ -41,18 +40,52 @@ export async function getOrCreateUser(refId = null, userName = null) {
     .select();
 
   if (error) {
-    console.error("Error creating user:", error);
+    console.error('Error creating user:', error);
     return null;
   }
 
-  const user = createdUser[0];
-
-  // If a referral ID is specified, register the referral
   if (refId && userName) {
     await registerRef(userName, refId);
   }
 
-  return user;
+  return createdUser[0];
+}
+
+export async function fetchPet() {
+  const { data, error } = await supabase
+    .from('users')
+    .select('pet')
+    .eq('telegram', MY_ID)
+    .single();
+
+  if (error || !data) {
+    console.error('Ошибка получения питомца:', error);
+    return null;
+  }
+
+  return data.pet;
+}
+
+
+
+export async function savePet(pet) {
+  const petData = {
+    id: pet.id,
+    name: pet.name,
+    type: pet.type,
+  };
+
+  const { data, error } = await supabase
+    .from('users')
+    .update({ pet: petData })
+    .eq('telegram', MY_ID);
+
+  if (error) {
+    console.error('Error saving pet:', error);
+    throw error;
+  }
+
+  return data;
 }
 
 export async function updateScore(score) {
