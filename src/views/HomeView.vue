@@ -24,25 +24,49 @@
       </span>
     </div>
   </div>
+  <TheMenu />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import ScoreProgress from '@/components/ScoreProgress.vue';
 import { useScoreStore } from '@/stores/score';
-import { updateTimers, fetchUserTimers } from '@/api/app';
-import frog from '@/assets/frog.png';
-import lizard from '@/assets/lizzard.png';
+import { updateTimers, fetchUserTimers, fetchPet } from '@/api/app';
+import frog from '@/assets/dog.jpg';
+import cow from '@/assets/cow.jpg';
+import cat from '@/assets/cat.jpg';
+import TheMenu from '../components/TheMenu.vue'
 
 const img = ref(null);
 const store = useScoreStore();
 
-const imgSrc = computed(() => (store.score > 25 ? lizard : frog));
+const imgSrc = ref(frog); // By default
+const pet = ref(null);
+
 
 const eatTimer = ref(0);
 const walkTimer = ref(0);
 let isEatClickable = ref(true);
 let isWalkClickable = ref(true);
+
+async function fetchPetData() {
+  pet.value = await fetchPet();
+  if (pet.value && pet.value.type) {
+    console.log('Pet type:', pet.value.type);
+    switch (pet.value.type) {
+      case 'Cow':
+        imgSrc.value = cow; 
+        break;
+      case 'Cat':
+        imgSrc.value = cat; 
+        break;
+      default:
+        imgSrc.value = frog;
+        break;
+    }
+  }
+}
+
 
 async function startTimer(timerRef, duration, isClickableRef, type) {
   const startTime = Date.now();
@@ -106,7 +130,11 @@ async function syncTimers() {
   }
 }
 
-onMounted(syncTimers);
+onMounted(async () => {
+  await fetchPetData(); // get the data on the pet
+  await syncTimers(); // synchronize the timers
+});
+
 </script>
 
 
@@ -114,19 +142,32 @@ onMounted(syncTimers);
 .button-game {
   display: flex;
   justify-content: space-between;
-  padding: 5px 10px;
   cursor: pointer;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 21px;
+}
+
+.enable, .disabled{
+  padding: 0.5em 1em;
+  border-radius: 80px;
+  min-width: 4em;
+  display: block;
+  text-align: center;
 }
 .disabled {
   color: gray;
+  background-color: #ccc;
   pointer-events: none;
   cursor: not-allowed;
 }
+
 .enable {
   color: antiquewhite;
+  background-color: black;
 }
 
-.walk, .eat {
-  color: white;
+.enable:active{
+  background-color: darkgray;
 }
+
 </style>
