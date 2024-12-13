@@ -15,12 +15,14 @@
       </li>
     </ul>
   </div>
+  <TheMenu />
 </template>
 
 <script setup>
 import { useTelegram } from '@/services/telegram'
 import { useAppStore } from '@/stores/app'
 import { ref, computed } from 'vue'
+import TheMenu from '../components/TheMenu.vue'
 
 const app = useAppStore()
 const { user } = useTelegram()

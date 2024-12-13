@@ -17,6 +17,16 @@ body {
   overflow-x: hidden;
 }
 
+.splash-bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(./assets/splash-bg.png);
+  background-size: cover;
+}
+
 .header {
   display: flex;
   align-items: center;
