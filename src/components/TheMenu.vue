@@ -1,4 +1,5 @@
 <template>
+<div class="menu-block">
   <div class="menu">
     <RouterLink to="/" custom v-slot="{ isActive, navigate }">
       <i
@@ -6,7 +7,9 @@
         :class="{ active: isActive }"
         @click="navigate"
         aria-hidden="true"
-      ></i>
+      >
+      <span>Game</span>
+    </i>
     </RouterLink>
     <RouterLink to="/friends" custom v-slot="{ isActive, navigate }">
       <i
@@ -14,18 +17,34 @@
         :class="{ active: isActive }"
         @click="navigate"
         aria-hidden="true"
-      ></i>
+      >
+      <span>Frens</span>
+    </i>
     </RouterLink>
-
     <RouterLink to="/tasks" custom v-slot="{ isActive, navigate }">
       <i
         class="menu-button fa fa-tasks"
         :class="{ active: isActive }"
         @click="navigate"
         aria-hidden="true"
-      ></i>
+      >
+      <span>Task</span>
+    </i>
     </RouterLink>
+    <!--
+        <RouterLink to="/leaderboard" custom v-slot="{ isActive, navigate }">
+      <i
+        class="menu-button fa fa-ranking-star"
+        :class="{ active: isActive }"
+        @click="navigate"
+        aria-hidden="true"
+      >
+      <span>Board</span>
+    </i>
+    </RouterLink>
+    -->
   </div>
+</div>
 </template>
 
 <script>

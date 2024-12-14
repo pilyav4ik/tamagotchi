@@ -34,13 +34,13 @@ import { useScoreStore } from '@/stores/score';
 import { updateTimers, fetchUserTimers, fetchPet } from '@/api/app';
 import frog from '@/assets/dog.jpg';
 import cow from '@/assets/cow.jpg';
-import cat from '@/assets/cat.jpg';
+import cat from '@/assets/cat.png';
 import TheMenu from '../components/TheMenu.vue'
 
 const img = ref(null);
 const store = useScoreStore();
 
-const imgSrc = ref(frog); // By default
+const imgSrc = ref(null); // By default
 const pet = ref(null);
 
 
