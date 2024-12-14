@@ -73,9 +73,6 @@ function onSlideChange(swiper) {
   
 
   <style>
-  body, .game, .page{
-    background-color: #f9f9f9;
-  }
   .pet-selection {
     text-align: center;
     font-family: 'Arial', sans-serif;

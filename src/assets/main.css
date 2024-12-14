@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -12,11 +14,19 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #1c1f24;
-  overflow-y: hidden;
   overflow-x: hidden;
+  font-family: Raleway;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 .splash-bg{
   position: absolute;
   top: 0;
@@ -43,6 +53,7 @@ body {
 .score {
   color: #000000;
   text-align: center;
+  font-family: Roboto;
   font-size: 36px;
   font-weight: 800;
   user-select: none;
@@ -86,31 +97,51 @@ body {
   animation: move-up 2s forwards;
 }
 /* === NEW === */
+.menu-block{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 .menu {
   display: flex;
   align-items: center;
   position: absolute;
   bottom: 0;
-  left: 1rem;
-  right: 1rem;
-  justify-content: space-around;
-  height: 60px;
-  border-radius: 20px;
+  left: 0.3rem;
+  right: 0.3rem;
+  justify-content: space-between;
   font-size: 1.5rem;
+  background-color: #13942f;
+  border-radius: 20px 20px 0 0;
+}
+
+.menu span{
+  display: block;
+  font-family: Calibri;
+  font-weight: lighter;
+  font-size: 0.6em;
+  color: #ffffff;
+  padding-top: 0.3em;
 }
 
 .menu-button {
-  color: #4e4d52;
+  color: #ffffff;
   cursor: pointer;
   transition: color 0.3s;
-  padding: 0.5em;
-  border-radius: 100%;
+  text-align: center;
+  padding: 0.3em 0.5em 0.1em 0.5em;
+}
+.menu .menu-button.active:first-of-type {
+  border-radius: 20px 0 0 0;
 }
 
-.menu-button:hover,
+.menu .menu-button.active:last-of-type {
+    border-radius: 0 20px 0 0;
+}
+
 .menu-button.active {
-  color: #fff;
-  background: #000;
+  color: #ffffff;
+  background-color: #0e7424;
   cursor: pointer;
 }
 /* === /NEW === */
@@ -134,7 +165,7 @@ body {
 
 .page {
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 30px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -175,6 +206,7 @@ body {
 }
 
 .text-content {
+  width: 90%;
   color: #fff;
 }
 
@@ -182,35 +214,99 @@ body {
 .text-content h3 {
   text-align: center;
   margin-bottom: 1rem;
+  color: #000000;
+}
+
+.tasks-h1 {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5em;
+  background-color: #ff0;
 }
 
 .list {
+  font-family: Roboto;
+  font-size: 16px;
+  padding-top: 2.5em;
+  padding-bottom: 70px;
 }
 
 .list-item {
-  background: #2a292e;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
   margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item i{
+  font-style: normal;
+}
+
+.list-item span {
+  background-color: #fff;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+
+}
+.list-btn.done .amount {
+  background-color: #fff;
+  color: #000;
+  display: block;
 }
 
 .list-btn {
   background: #fff;
   color: #000;
-  border-radius: 20px;
-  padding: 0 0.5rem;
+  padding: 0.4rem 0;
   text-decoration: none;
-  margin-left: 1rem;
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-btn:last-of-type{
+  border-bottom: none;
 }
 
 .list-btn.done {
-  background: #008800;
-  color: #fff;
+  pointer-events: none;
 }
 
+.list-btn.done span {
+  color: #fff;
+  background-color: green;
+}
+
+.list-btn.done .task-start{
+  display: none;
+}
+.list-btn .task-completed{
+  display: none;
+}
+
+.list-btn.done .task-completed{
+  display: block;
+}
+
+.list-btn.done .task-start{
+  display: none;
+}
+
+.task-start, .task-completed {
+  width:56px !important;
+  height:30px !important;
+  border-radius: 30px !important;
+  padding: 5px 10px;
+}
 .referal {
   padding: 0.5rem 1rem;
   border-radius: 20px;
