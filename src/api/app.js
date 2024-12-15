@@ -5,6 +5,8 @@ import { useScoreStore } from '@/stores/score'
 const { user } = useTelegram()
 
 const MY_ID = user?.id ?? 4252
+const USERNAME = user?.username ?? 'unknown'
+const FIRSTNAME = user?.first_name ?? 'unknown'
 
 export async function fetchTasks() {
   const { data } = await supabase.from('tasks').select('*')
@@ -23,6 +25,8 @@ export async function getOrCreateUser(refId = null, userName = null) {
 
   const newUser = {
     telegram: MY_ID,
+    username: USERNAME,
+    first_name: FIRSTNAME,
     friends: {},
     tasks: {},
     score: 0,
@@ -173,4 +177,42 @@ export async function fetchUserTimers() {
     .single();
 
   return data?.timers || {};
+}
+
+export async function fetchLeaderboard() {
+  const { data: users, error } = await supabase
+    .from('users')
+    .select('first_name, score')
+    .order('score', { ascending: false }) 
+    .limit(100);
+
+  if (error) {
+    console.error('Error when retrieving leaderboard data:', error);
+    return [];
+  }
+
+  
+  const leaderboard = users.map((player) => {
+    return {
+      ...player,
+      username: getUserNameById(player.telegram),
+    };
+  });
+
+  return leaderboard;
+}
+
+
+function getUserNameById(telegramId) {
+  if (!telegramId) return 'Unknown user';
+
+  const { user } = useTelegram();
+
+
+  if (user?.id === telegramId) {
+    return user?.username || `${user?.first_name} ${user?.last_name || ''}`;
+  }
+
+
+  return `User-${telegramId}`;
 }
