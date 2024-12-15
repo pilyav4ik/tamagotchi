@@ -32,6 +32,12 @@ const router = createRouter({
       component: () => import('../views/PetSelectionView.vue'),
       screenOrientation: 'autoRotate:disabled', 
     },
+    {
+      path: '/leaderboard',
+      name: 'leaderboard',
+      component: () => import('../views/LeaderboardView.vue'),
+      screenOrientation: 'autoRotate:disabled', 
+    },
   ],
 });
 

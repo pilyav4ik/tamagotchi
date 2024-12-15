@@ -8,17 +8,7 @@
         @click="navigate"
         aria-hidden="true"
       >
-      <span>Game</span>
-    </i>
-    </RouterLink>
-    <RouterLink to="/friends" custom v-slot="{ isActive, navigate }">
-      <i
-        class="menu-button fa fa-users"
-        :class="{ active: isActive }"
-        @click="navigate"
-        aria-hidden="true"
-      >
-      <span>Frens</span>
+      <span>Play</span>
     </i>
     </RouterLink>
     <RouterLink to="/tasks" custom v-slot="{ isActive, navigate }">
@@ -31,8 +21,17 @@
       <span>Task</span>
     </i>
     </RouterLink>
-    <!--
-        <RouterLink to="/leaderboard" custom v-slot="{ isActive, navigate }">
+    <RouterLink to="/friends" custom v-slot="{ isActive, navigate }">
+      <i
+        class="menu-button fa fa-users"
+        :class="{ active: isActive }"
+        @click="navigate"
+        aria-hidden="true"
+      >
+      <span>Frens</span>
+    </i>
+    </RouterLink>
+    <RouterLink to="/leaderboard" custom v-slot="{ isActive, navigate }">
       <i
         class="menu-button fa fa-ranking-star"
         :class="{ active: isActive }"
@@ -42,7 +41,6 @@
       <span>Board</span>
     </i>
     </RouterLink>
-    -->
   </div>
 </div>
 </template>
