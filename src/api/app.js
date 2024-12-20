@@ -14,10 +14,15 @@ export async function fetchTasks() {
 }
 
 export async function getOrCreateUser(refId = null, userName = null) {
-  const { data: potentialUser } = await supabase
+  const { data: potentialUser, error: userFetchError } = await supabase
     .from('users')
-    .select()
+    .select('*')
     .eq('telegram', MY_ID);
+
+  if (userFetchError) {
+    console.error('Error fetching user:', userFetchError);
+    throw userFetchError;
+  }
 
   if (potentialUser.length !== 0) {
     return potentialUser[0];
@@ -215,4 +220,75 @@ function getUserNameById(telegramId) {
 
 
   return `User-${telegramId}`;
+}
+
+
+export async function dailyCheckIn() {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+
+    // Get user data
+    const { data: user, error: userError } = await supabase
+      .from('users')
+      .select('id, score, last_check_in, check_in_count')
+      .eq('telegram', MY_ID)
+      .single();
+
+    if (userError || !user) {
+      console.error('Error fetching user for daily check-in:', userError);
+      throw userError;
+    }
+
+    // Check if the user has checked in today
+    if (user.last_check_in === today) {
+      return { success: false, message: "You've already checked in today!" };
+    }
+
+    // Increase scores, date of last mark and number of check-ins
+    const newScore = user.score + 10; // +10 points for check-in
+    const newCheckInCount = user.check_in_count + 1;
+
+    const { error: updateError } = await supabase
+      .from('users')
+      .update({ 
+        score: newScore, 
+        last_check_in: today, 
+        check_in_count: newCheckInCount 
+      })
+      .eq('id', user.id);
+
+    if (updateError) {
+      console.error('Error updating user check-in:', updateError);
+      throw updateError;
+    }
+
+    return { 
+      success: true, 
+      message: `Checkin has been successfully completed! Your new score: ${newScore} points. Total number of marks: ${newCheckInCount}`,
+      checkInCount: newCheckInCount,
+    };
+  } catch (err) {
+    console.error('Unexpected error during daily check-in:', err);
+    return { success: false, message: "There's been an error. Try again later." };
+  }
+}
+
+export async function fetchUserData() {
+  try {
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('last_check_in, check_in_count')
+      .eq('telegram', MY_ID)
+      .single();
+
+    if (error) {
+      console.error('Error retrieving user data:', error);
+      throw error;
+    }
+
+    return user;
+  } catch (err) {
+    console.error('Unexpected error when loading user data:', err);
+    throw err;
+  }
 }

@@ -13,6 +13,13 @@ const router = createRouter({
       screenOrientation: 'autoRotate:disabled', 
     },
     {
+      path: '/checkin',
+      name: 'checkin',
+      component: () => import('../views/CheckInView.vue'),
+      meta: { backgroundColor: '#ffffff' }, 
+      screenOrientation: 'autoRotate:disabled',
+    },
+    {
       path: '/tasks',
       name: 'tasks',
       component: () => import('../views/TasksView.vue'),

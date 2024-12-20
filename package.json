@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite -d",
     "ngrok": "ngrok http --url needed-hagfish-truly.ngrok-free.app 5173",
     "build": "vite build",
     "preview": "vite preview"

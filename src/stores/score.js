@@ -63,5 +63,8 @@ export const useScoreStore = defineStore('score', {
     startAutoIncrement() {
       this.autoIncrementInterval = this.add(1); // Increase the score by 1 every minute
     },
+    updateScore(newScore) {
+      this.score += newScore;
+    },
   },
 });
