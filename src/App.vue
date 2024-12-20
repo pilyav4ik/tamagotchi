@@ -23,16 +23,46 @@
 </template>
 
 <script>
+
+import { fetchUserData } from "@/api/app"; // Импорт функции
+import { RouterView } from "vue-router";
+import { onMounted, ref } from "vue";
+import { useAppStore } from "@/stores/app";
+import { useTelegram } from "@/services/telegram";
+import { fetchPet } from "@/api/app";
+import { useRouter } from "vue-router";
+import bgImage from "@/assets/splash.png";
+
 export default {
-  name: "app",
+  name: "App",
   data: () => ({
     loading: true,
   }),
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
-  },
+  // Fix in mounted hook
+async mounted() {
+  const router = useRouter(); // Ensure router instance is available
+  try {
+    const userData = await fetchUserData();
+    const today = new Date();
+    const lastCheckIn = userData?.last_check_in ? new Date(userData.last_check_in) : null;
+
+    const isTodayCheckedIn =
+      lastCheckIn &&
+      lastCheckIn.getDate() === today.getDate() &&
+      lastCheckIn.getMonth() === today.getMonth() &&
+      lastCheckIn.getFullYear() === today.getFullYear();
+
+    if (!isTodayCheckedIn) {
+      router.push("/checkin");
+    } else {
+      router.push("/");
+    }
+  } catch (error) {
+    console.error("Check-ins error:", error);
+  } finally {
+    this.loading = false;
+  }
+},
 };
 </script>
 
@@ -41,7 +71,7 @@ import { RouterView } from "vue-router";
 import { onMounted, ref } from "vue";
 import { useAppStore } from "@/stores/app";
 import { useTelegram } from "@/services/telegram";
-import { fetchPet } from "@/api/app";
+import { fetchPet, fetchUserData } from "@/api/app";
 import { useRouter } from "vue-router";
 import bgImage from "@/assets/splash.png";
 
@@ -56,7 +86,7 @@ const urlParams = new URLSearchParams(window.location.search);
 app.init(urlParams.get("ref")).then(async () => {
   const pet = await fetchPet();
   if (!pet || !pet.id) {
-    router.push("/select-pet"); // Перенаправление на страницу выбора питомца
+    router.push("/select-pet"); // Redirects to the pet selection page
   }
   loaded.value = true;
 });
