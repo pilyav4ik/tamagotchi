@@ -4,6 +4,17 @@
       <span>{{ store.currentScore }} / {{ store.level.value }}</span>
       <span>{{ store.level.level + 1 }}</span>
     </h4>
+    <div>
+      <span 
+      style="
+      background-color: coral; 
+      border-radius: 100px; 
+      padding: 0.5em;
+      position: relative;
+      top: -2vh;">
+        Years: {{progress/2}}
+      </span>
+    </div>
     <div class="progress-container">
       <div class="progress-value" :style="{ width: progress + '%' }"></div>
     </div>

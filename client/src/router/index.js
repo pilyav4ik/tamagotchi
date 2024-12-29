@@ -44,6 +44,11 @@ const router = createRouter({
       name: 'leaderboard',
       component: () => import('../views/LeaderboardView.vue'),
       screenOrientation: 'autoRotate:disabled', 
+    },{
+      path: '/wallet',
+      name: 'wallet',
+      component: () => import('../views/WalletView.vue'),
+      screenOrientation: 'autoRotate:disabled', 
     },
   ],
 });

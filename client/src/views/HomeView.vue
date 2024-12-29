@@ -11,16 +11,33 @@
 
     <div class="button-game">
       <span 
+      class="eat"
         :class="{ disabled: !isEatClickable, enable: isEatClickable }" 
         @click="eat"
       >
         {{ eatTimer > 0 ? eatTimer : "Eat" }}
       </span>
       <span 
+      class="walk"
         :class="{ disabled: !isWalkClickable, enable: isWalkClickable }" 
         @click="walk"
       >
         {{ walkTimer > 0 ? walkTimer : "Walk" }}
+      </span>
+
+      <span 
+      class="sleep"
+        :class="{ disabled: !isEatClickable, enable: isEatClickable }" 
+        @click="eat"
+      >
+        {{ eatTimer > 0 ? eatTimer : "Sleep" }}
+      </span>
+      <span 
+      class="play"
+        :class="{ disabled: !isWalkClickable, enable: isWalkClickable }" 
+        @click="walk"
+      >
+        {{ walkTimer > 0 ? walkTimer : "Play" }}
       </span>
     </div>
   </div>
