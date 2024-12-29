@@ -41,6 +41,16 @@
       <span>Board</span>
     </i>
     </RouterLink>
+        <RouterLink to="/wallet" custom v-slot="{ isActive, navigate }">
+      <i
+        class="menu-button fa fa-ranking-star"
+        :class="{ active: isActive }"
+        @click="navigate"
+        aria-hidden="true"
+      >
+      <span>Wallet</span>
+    </i>
+    </RouterLink>
   </div>
 </div>
 </template>

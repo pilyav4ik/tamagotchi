@@ -54,6 +54,11 @@ main{
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 1vw;
+  padding-top: 1vh;
 }
 
 .header img {
@@ -79,7 +84,6 @@ main{
 }
 
 .game-container {
-  width: 200px;
   margin: 0 auto;
 }
 
@@ -340,4 +344,15 @@ main{
 
 .button-game{
   margin-top:25px;
+}
+
+.walk, .sleep{
+  position: relative;
+  top: 1em;
+}
+
+.button-pay{
+  border: 1px solid #000;
+  padding: 4px 9px;
+  border-radius: 80px;
 }
