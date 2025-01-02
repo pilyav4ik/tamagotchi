@@ -7,6 +7,7 @@
       class="swiper-container"
       :slides-per-view="1"
       :space-between="20"
+      :loop="true"
       @slideChange="onSlideChange"
     >
       <swiper-slide 
@@ -40,9 +41,11 @@ import { ref, computed } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 
-import dog from '@/assets/dog.jpg';
-import cat from '@/assets/cat.jpg';
-import cow from '@/assets/cow.jpg';
+import dog from '@/assets/dog.png';
+import cat from '@/assets/cat.png';
+import cow from '@/assets/cow.png';
+import dino from '@/assets/dino.png';
+import elephant from '@/assets/elephant.png';
 
  
   const router = useRouter();
@@ -51,6 +54,8 @@ import cow from '@/assets/cow.jpg';
   { id: 'dog', name: 'Doggy', type: 'Dog', image: dog },
   { id: 'cat', name: 'Harrold', type: 'Cat', image: cat },
   { id: 'cow', name: 'Melany', type: 'Cow', image: cow },
+  { id: 'dino', name: 'Rex', type: 'Dino', image: dino },
+  { id: 'elephant', name: 'Melany', type: 'Elephant', image: elephant },
   ]);
 
 const selectedPet = ref(null);
@@ -76,9 +81,9 @@ function onSlideChange(swiper) {
   .pet-selection {
     text-align: center;
     font-family: 'Arial', sans-serif;
-    padding: 20px;
+    padding: 0;
     background-color: #f9f9f9;
-    max-width: 400px;
+    max-width: 100vw;
     margin: 0 auto;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -101,15 +106,11 @@ function onSlideChange(swiper) {
   }
   
   .pet-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
   }
   
   .pet-image {
-    max-width: 100px;
+    max-width: 100%;
     margin-bottom: 15px;
   }
   

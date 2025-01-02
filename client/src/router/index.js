@@ -10,7 +10,8 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: { backgroundColor: '#f0f8ff' },
-      screenOrientation: 'autoRotate:disabled', 
+      screenOrientation: 'autoRotate:disabled',
+      meta: { bodyClass: 'home-bg' }, 
     },
     {
       path: '/checkin',
@@ -25,6 +26,7 @@ const router = createRouter({
       component: () => import('../views/TasksView.vue'),
       meta: { backgroundColor: '#f0f8ff' }, 
       screenOrientation: 'autoRotate:disabled', 
+      meta: { bodyClass: 'task-bg' },
     },
     {
       path: '/friends',
@@ -62,6 +64,12 @@ router.afterEach((to) => {
     newMetaTag.setAttribute('http-equiv', 'ScreenOrientation');
     newMetaTag.setAttribute('content', to.meta.screenOrientation || 'autoRotate:enabled');
     document.head.appendChild(newMetaTag);
+  }
+
+  const body = document.body;
+  body.className = ''; // Очистка всех классов
+  if (to.meta.bodyClass) {
+    body.classList.add(to.meta.bodyClass);
   }
 });
 
