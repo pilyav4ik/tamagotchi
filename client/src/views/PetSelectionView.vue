@@ -41,11 +41,11 @@ import { ref, computed } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 
-import dog from '@/assets/dog.png';
-import cat from '@/assets/cat.png';
-import cow from '@/assets/cow.png';
-import dino from '@/assets/dino.png';
-import elephant from '@/assets/elephant.png';
+import dog from '@/assets/pets/dog.webp';
+import cat from '@/assets/pets/cat.webp';
+import cow from '@/assets/pets/cow.webp';
+import dino from '@/assets/pets/dino.webp';
+import elephant from '@/assets/pets/elephant.webp';
 
  
   const router = useRouter();

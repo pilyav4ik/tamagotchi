@@ -1,5 +1,5 @@
 <template>
-  <main class="game" v-if="loaded">
+    <main class="game" v-if="loaded">
     <div class="page">
       <RouterView />
     </div>
