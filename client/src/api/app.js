@@ -292,3 +292,31 @@ export async function fetchUserData() {
     throw err;
   }
 }
+
+export async function saveWalletAddress(wallet) {
+  const { error } = await supabase
+    .from('users')
+    .update({ wallet })
+    .eq('telegram', MY_ID);
+
+  if (error) {
+    throw new Error(`Failed to save wallet address: ${error.message}`);
+  }
+}
+
+
+
+export async function fetchFriendPet(friendTelegramId) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('pet')
+    .eq('telegram', friendTelegramId)
+    .single();
+
+  if (error) {
+    console.error('Error fetching friend pet:', error);
+    return null;
+  }
+
+  return data?.pet || null;
+}

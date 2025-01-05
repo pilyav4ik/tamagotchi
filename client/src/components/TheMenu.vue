@@ -41,7 +41,7 @@
       <span>Board</span>
     </i>
     </RouterLink>
-        <RouterLink to="/wallet" custom v-slot="{ isActive, navigate }">
+    <!-- <RouterLink to="/wallet" custom v-slot="{ isActive, navigate }">
       <i
         class="menu-button fa fa-ranking-star"
         :class="{ active: isActive }"
@@ -50,7 +50,7 @@
       >
       <span>Wallet</span>
     </i>
-    </RouterLink>
+    </RouterLink>-->
   </div>
 </div>
 </template>

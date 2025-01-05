@@ -1,25 +1,5 @@
 <template>
   <div class="text-content">
-
-    <ul>
-      <li class="list-item">
-        <a
-          target="_blank"
-          class="list-btn"
-        >
-          <i>
-            Connect Wallet
-            <br>
-            <span class="amount">
-              + 1000
-            </span>
-          </i>
-          <span class="task-start">start</span>
-          <span class="task-completed">done</span>
-        </a>
-      </li>
-    </ul>
-
     <ul class="list">
       <Monetag />
     </ul>
