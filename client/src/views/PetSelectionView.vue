@@ -1,12 +1,12 @@
 <template>
-  <div class="pet-selection">
-    <h1 class="title">CHOOSE A PET</h1>
-    <p class="subtitle">Swipe to select your pet</p>
+  <div class="container">
+    <div class="pet-selection">
+    <h1 class="title">Swipe to select your pet</h1>
+    <p class="subtitle"></p>
 
     <swiper 
       class="swiper-container"
       :slides-per-view="1"
-      :space-between="20"
       :loop="true"
       @slideChange="onSlideChange"
     >
@@ -31,6 +31,7 @@
       CHOOSE
     </button>
   </div>
+  </div>
 </template>
 
   
@@ -46,6 +47,10 @@ import cat from '@/assets/pets/cat.webp';
 import cow from '@/assets/pets/cow.webp';
 import dino from '@/assets/pets/dino.webp';
 import elephant from '@/assets/pets/elephant.webp';
+import fox from '@/assets/pets/fox.webp';
+import humster from '@/assets/pets/humster.webp';
+import onehorn from '@/assets/pets/onehorn.webp';
+import tiger from '@/assets/pets/tiger.webp';
 
  
   const router = useRouter();
@@ -56,6 +61,10 @@ import elephant from '@/assets/pets/elephant.webp';
   { id: 'cow', name: 'Melany', type: 'Cow', image: cow },
   { id: 'dino', name: 'Rex', type: 'Dino', image: dino },
   { id: 'elephant', name: 'Melany', type: 'Elephant', image: elephant },
+  { id: 'fox', name: 'Foxy', type: 'Fox', image: fox },
+  { id: 'humster', name: 'Hummy', type: 'Humster', image: humster },
+  { id: 'onehorn', name: 'Horny', type: 'Onehorn', image: onehorn },
+  { id: 'tiger', name: 'Tigy', type: 'Tiger', image: tiger },
   ]);
 
 const selectedPet = ref(null);
@@ -78,15 +87,24 @@ function onSlideChange(swiper) {
   
 
   <style>
+  .page{
+    padding: 0;
+  }
+  .swiper {
+    overflow:visible !important;
+  }
+  .container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
   .pet-selection {
     text-align: center;
     font-family: 'Arial', sans-serif;
     padding: 0;
-    background-color: #f9f9f9;
     max-width: 100vw;
     margin: 0 auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .title {

@@ -4,7 +4,7 @@
       <ScoreProgress />
       <div class="header">
         <img src="../assets/coin.png" alt="coin" />
-        <h2 class="score" id="score">{{ store.score }}</h2>
+        <h2 class="score" id="score">{{ (store.score / 2) }}</h2>
       </div>
     </div>
     <div class="game">
@@ -20,15 +20,16 @@
           @click="handleAction(action)"
         >
           <div class="button">
-            <span v-if="action.timer > 0">{{ action.timer }}</span>
-            <i v-else :class="action.icon" :title="action.type"></i>
+            <i  :class="action.icon"></i>
           </div>
+          <span class="timer" v-if="action.timer > 0">{{ formatTime(action.timer) }}</span>
         </span>
       </div>
     </div>
     <TheMenu />
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -40,6 +41,10 @@ import cat from '@/assets/pets/cat.webp';
 import cow from '@/assets/pets/cow.webp';
 import dino from '@/assets/pets/dino.webp';
 import elephant from '@/assets/pets/elephant.webp';
+import fox from '@/assets/pets/fox.webp';
+import humster from '@/assets/pets/humster.webp';
+import onehorn from '@/assets/pets/onehorn.webp';
+import tiger from '@/assets/pets/tiger.webp';
 import TheMenu from '@/components/TheMenu.vue';
 
 const img = ref(null);
@@ -49,17 +54,17 @@ const imgSrc = ref(null);
 const pet = ref(null);
 
 const actions = ref([
-  { type: 'eat', timer: 0, isClickable: true, icon: 'fas fa-utensils', duration: 30, score: 1 },
-  { type: 'walk', timer: 0, isClickable: true, icon: 'fas fa-shoe-prints', duration: 60, score: 3 },
-  { type: 'play', timer: 0, isClickable: true, icon: 'fas fa-gamepad', duration: 85, score: 3 },
-  { type: 'sleep', timer: 0, isClickable: true, icon: 'fas fa-bed', duration: 45, score: 1 },
+  { type: 'eat', timer: 0, isClickable: true, icon: 'fas fa-utensils', duration: 3600, score: 20 },
+  { type: 'walk', timer: 0, isClickable: true, icon: 'fas fa-shoe-prints', duration: 14400, score: 40 },
+  { type: 'play', timer: 0, isClickable: true, icon: 'fas fa-gamepad', duration: 7200, score: 35 },
+  { type: 'sleep', timer: 0, isClickable: true, icon: 'fas fa-bed', duration: 32400, score: 75 },
 ]);
 
 const isMobile = ref(false);
 
 async function fetchPetData() {
   pet.value = await fetchPet();
-  const petImages = { Cow: cow, Cat: cat, Dog: dog, Dino: dino, Elephant: elephant };
+  const petImages = { Cow: cow, Cat: cat, Dog: dog, Dino: dino, Elephant: elephant, Fox: fox, Humster: humster, Onehorn: onehorn, Tiger: tiger };
   imgSrc.value = petImages[pet.value?.type] || '';
 }
 
@@ -87,6 +92,21 @@ function handleAction(action) {
   updateTimers({ [action.type]: { startTime, remaining: remainingTime } });
   startTimer(action);
 }
+
+function formatTime(seconds) {
+  if (seconds >= 3600) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `> ${hours} h`;
+  } else if (seconds >= 60) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return secs > 0 ? `${minutes} m` : `${minutes} m`;
+  } else {
+    return `${seconds} s`;
+  }
+}
+
 
 async function syncTimers() {
   const timers = await fetchUserTimers();
@@ -140,8 +160,7 @@ onMounted(async () => {
   width: 100%;
 }
 
-.enable,
-.disabled {
+.enable{
   border-radius: 100em;
   height: 2.5em;
   width: 2.5em;
@@ -150,12 +169,23 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
 }
+
 .disabled {
-  color: gray;
-  background-color: #ccc;
-  pointer-events: none;
-  cursor: not-allowed;
+  border-radius: 100em;
+    height: 2.5em;
+    width: 2.5em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    color: gray;
+    background-color: #ccc;
+    pointer-events: none;
+    cursor: not-allowed;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-top: 0.7em;
 }
+
 .enable {
   color: antiquewhite;
   background-color: black;
@@ -164,9 +194,14 @@ onMounted(async () => {
   background-color: darkgray;
 }
 
+.eat::after, .walk::after, .play::after, .sleep::after {
+  content: none;
+}
+
+
 .eat::after, .walk::after, .play::after, .sleep::after{
     position: absolute;
-    margin-top: 3.8em;
+    margin-top: 4.2em;
     color: #000;
     z-index: 1;
     font-size: 0.85em;
@@ -184,10 +219,18 @@ onMounted(async () => {
 .sleep::after{
   content: "sleep";
 }
+
+.disabled::after{
+  content: "" !important;
+}
 .page{
-  padding: 4vw;
+  padding: 4vw !important; 
 }
 .game{
   width: 100%;
+}
+
+.timer{
+  padding-top: 1em;
 }
 </style>
