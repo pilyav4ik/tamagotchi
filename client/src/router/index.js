@@ -39,7 +39,8 @@ const router = createRouter({
       path: '/select-pet',
       name: 'select-pet',
       component: () => import('../views/PetSelectionView.vue'),
-      screenOrientation: 'autoRotate:disabled', 
+      screenOrientation: 'autoRotate:disabled',
+      meta: { bodyClass: 'select-pet-bg' },
     },
     {
       path: '/leaderboard',
