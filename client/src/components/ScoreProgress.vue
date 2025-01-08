@@ -8,7 +8,7 @@
       <div>
         <span v-if="(progress / 10).toFixed(1) >10">{{ (progress / 100).toFixed(1) }}</span>
   <span 
-    v-if="(progress / 100).toFixed(1) > 10"
+    v-if="(progress / 10).toFixed(1) < 1"
     style="
       background-color: coral; 
       border-radius: 100px; 
@@ -25,7 +25,7 @@
       padding: 0.5em;
       position: relative;
       top: -2vh;">
-    Years: {{ (progress / 100).toFixed(1) }}
+    Years: {{ (progress / 10).toFixed(1) }}
   </span>
 </div>
 <div class="progress-container">

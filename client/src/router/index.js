@@ -17,7 +17,7 @@ const router = createRouter({
       path: '/checkin',
       name: 'checkin',
       component: () => import('../views/CheckInView.vue'),
-      meta: { backgroundColor: '#ffffff' }, 
+      meta: {  bodyClass: 'checkin-bg' }, 
       screenOrientation: 'autoRotate:disabled',
     },
     {
