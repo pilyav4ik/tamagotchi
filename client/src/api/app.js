@@ -244,9 +244,17 @@ export async function dailyCheckIn() {
       return { success: false, message: "You've already checked in today!" };
     }
 
-    // Increase scores, date of last mark and number of check-ins
-    const newScore = user.score + 10; // +10 points for check-in
-    const newCheckInCount = user.check_in_count + 1;
+    // Reset the check-in count if it’s the 8th day
+    const isEighthDay = (user.check_in_count % 7) === 0 && user.check_in_count > 0;
+    const newCheckInCount = isEighthDay ? 1 : user.check_in_count + 1;
+
+    // Calculate reward for the day
+    const currentDay = isEighthDay ? 1 : (user.check_in_count % 7) + 1; // Days within the current cycle
+    const rewardMultiplier = Math.pow(1.5, currentDay - 1); // Progressive increase
+    const rewardPoints = Math.round(10 * rewardMultiplier);
+
+    // Update user data
+    const newScore = user.score + rewardPoints;
 
     const { error: updateError } = await supabase
       .from('users')
@@ -264,8 +272,9 @@ export async function dailyCheckIn() {
 
     return { 
       success: true, 
-      message: `Checkin has been successfully completed! Your new score: ${newScore} points. Total number of marks: ${newCheckInCount}`,
+      message: `Check-in successful! You've earned ${rewardPoints} points today! Your new score: ${newScore}.`,
       checkInCount: newCheckInCount,
+      reset: isEighthDay, // Indicates that the cycle has been reset
     };
   } catch (err) {
     console.error('Unexpected error during daily check-in:', err);
