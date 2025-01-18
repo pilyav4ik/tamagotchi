@@ -1,5 +1,7 @@
 <template>
-  <div class="game-container">
+  <div class="page">
+    <div class="game-container">
+    <ShopService/>
     <div class="head">
       <ScoreProgress />
       <div class="header">
@@ -28,12 +30,14 @@
     </div>
     <TheMenu />
   </div>
+  </div>
 </template>
 
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import ScoreProgress from '@/components/ScoreProgress.vue';
+import ShopService from '@/components/ShopButton.vue';
 import { useScoreStore } from '@/stores/score';
 import { updateTimers, fetchUserTimers, fetchPet } from '@/api/app';
 import dog from '@/assets/pets/dog.webp';
@@ -54,10 +58,10 @@ const imgSrc = ref(null);
 const pet = ref(null);
 
 const actions = ref([
-  { type: 'eat', timer: 0, isClickable: true, icon: 'fas fa-utensils', duration: 3600, score: 20 },
-  { type: 'walk', timer: 0, isClickable: true, icon: 'fas fa-shoe-prints', duration: 14400, score: 40 },
-  { type: 'play', timer: 0, isClickable: true, icon: 'fas fa-gamepad', duration: 7200, score: 35 },
-  { type: 'sleep', timer: 0, isClickable: true, icon: 'fas fa-bed', duration: 32400, score: 75 },
+  { type: 'eat', timer: 0, isClickable: true, icon: 'fas fa-utensils', duration: 18000, score: 20 }, //5 hours
+  { type: 'walk', timer: 0, isClickable: true, icon: 'fas fa-shoe-prints', duration: 21600, score: 35 }, //6 hours
+  { type: 'play', timer: 0, isClickable: true, icon: 'fas fa-gamepad', duration: 32400, score: 50 }, //9 hours
+  { type: 'sleep', timer: 0, isClickable: true, icon: 'fas fa-bed', duration: 39600, score: 75 }, //11 hours
 ]);
 
 const isMobile = ref(false);
@@ -149,6 +153,7 @@ onMounted(async () => {
     height: fit-content;
     justify-content: space-between;
     align-items: center;
+    margin-top: 70px;
 }
 
 .button-game {

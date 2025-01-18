@@ -34,6 +34,7 @@ const router = createRouter({
       component: () => import('../views/FriendsView.vue'),
       meta: { backgroundColor: '#ffffff' }, 
       screenOrientation: 'autoRotate:disabled', 
+      meta: { bodyClass: 'friends-bg' }, 
     },
     {
       path: '/select-pet',
@@ -46,12 +47,21 @@ const router = createRouter({
       path: '/leaderboard',
       name: 'leaderboard',
       component: () => import('../views/LeaderboardView.vue'),
-      screenOrientation: 'autoRotate:disabled', 
-    },{
+      screenOrientation: 'autoRotate:disabled',
+      meta: { bodyClass: 'leaderboard-bg' },  
+    },
+    {
       path: '/wallet',
       name: 'wallet',
       component: () => import('../views/WalletView.vue'),
       screenOrientation: 'autoRotate:disabled', 
+    },
+    {
+      path: '/shop',
+      name: 'shop',
+      component: () => import('../views/ShopView.vue'),
+      screenOrientation: 'autoRotate:disabled', 
+      meta: { bodyClass: 'shop-bg' }, 
     },
   ],
 });

@@ -1,15 +1,15 @@
 <script setup>
-import { useWebAppNavigation } from 'vue-tg';
 import TheMenu from '../components/TheMenu.vue'
-import PayService from '@/components/PayService.vue';
-
+import StarsPayment from '@/components/StarsPaymentService.vue';
 </script>
 
 <template>
-  <main>
+  <div class="page">
+    <main>
     <br><br><br><br><br>
-    <PayService/>
+    <StarsPayment/>
 
     <TheMenu />
   </main>
+  </div>
 </template>

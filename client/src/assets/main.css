@@ -28,6 +28,8 @@ body {
   scrollbar-width: none;  /* Firefox */
 }
 
+a, div { -webkit-tap-highlight-color: transparent !important; }
+
 .isNotMobile{
   display: block;
     background-color: #fff;
@@ -41,14 +43,21 @@ body {
 /* styles.css */
 .home-bg {
   background-image: url('./bg.jpg');
-  background-position: top right;
+  background-position: bottom right;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.task-bg {
+.friends-bg,
+.shop-bg {
   background-color: #ffffff !important;
+  padding-top: 7vh;
 }
+
+.leaderboard-bg, .task-bg{
+  background-color: #d4bdb3 !important; 
+}
+
 
 main{
   height: 100%;
@@ -267,85 +276,6 @@ main{
   background-color: #ff0;
 }
 
-.list {
-  font-family: Roboto;
-  font-size: 16px;
-  padding-top: 2.5em;
-}
-
-.list-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ccc;
-}
-
-.list-item:last-child {
-  border-bottom: none;
-}
-
-.list-item i{
-  font-style: normal;
-}
-
-.list-item span {
-  background-color: #fff;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-
-}
-.list-btn.done .amount {
-  background-color: #fff;
-  color: #000;
-  display: block;
-}
-
-.list-btn {
-  background: #fff;
-  color: #000;
-  padding: 0.4rem 0;
-  text-decoration: none;
-  width: 100%;
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.list-btn:last-of-type{
-  border-bottom: none;
-}
-
-.list-btn.done {
-  pointer-events: none;
-}
-
-.list-btn.done span {
-  color: #fff;
-  background-color: green;
-}
-
-.list-btn.done .task-start{
-  display: none;
-}
-.list-btn .task-completed{
-  display: none;
-}
-
-.list-btn.done .task-completed{
-  display: block;
-}
-
-.list-btn.done .task-start{
-  display: none;
-}
-
-.task-start, .task-completed {
-  width:56px !important;
-  height:30px !important;
-  border-radius: 30px !important;
-  padding: 5px 10px;
-}
 .referal {
   padding: 0.5rem 1rem;
   border-radius: 20px;

@@ -1,5 +1,6 @@
 <template>
-  <div class="leaderboard">
+  <div class="page">
+    <div class="leaderboard">
     <h2>🏆 Leaderboard</h2>
     <div class="card-list">
       <div v-for="(user, index) in mockLeaderboard" :key="user.telegram" class="card">
@@ -18,6 +19,7 @@
   </div>
 
   <TheMenu />
+    </div>
 </template>
 
 <script setup>
@@ -57,6 +59,8 @@ const mockLeaderboard = [
   text-align: center;
   margin: 20px auto;
   width: 100%;
+  color: #ffffff;
+  padding-top: 3em;
 }
 
 .leaderboard h2 {
@@ -75,6 +79,7 @@ const mockLeaderboard = [
   padding: 12px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #816d65;
 }
 
 .rank {
@@ -111,8 +116,8 @@ const mockLeaderboard = [
   font-size: 0.9rem;
   color: #ffffff;
   background-color: #CD7F32;
-  width: 3em;
+  min-width: 3em;
   border-radius: 100px;
-  padding: 0.2em;
+  padding: 0.2em 0.6em;
 }
 </style>
