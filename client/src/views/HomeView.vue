@@ -35,7 +35,7 @@
 
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import ScoreProgress from '@/components/ScoreProgress.vue';
 import ShopService from '@/components/ShopButton.vue';
 import { useScoreStore } from '@/stores/score';
@@ -142,6 +142,18 @@ onMounted(async () => {
   await fetchPetData();
   await syncTimers();
   await detectMobileDevice();
+  window.addEventListener('reduce-timer', (event) => {
+    const { type, seconds } = event.detail;
+    const action = actions.value.find((a) => a.type === type);
+    if (action) {
+      action.timer = Math.max(0, action.timer - seconds);
+      action.isClickable = action.timer === 0;
+    }
+  });
+});
+
+onUnmounted(() => {
+  window.removeEventListener('reduce-timer', null);
 });
 </script>
 

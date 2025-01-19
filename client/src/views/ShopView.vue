@@ -27,8 +27,25 @@
 <script setup>
 import { useWebAppNavigation } from 'vue-tg';
 import TheMenu from '@/components/TheMenu.vue';
+import { reduceTimer } from '@/api/app';
+import { ref } from 'vue';
+
 
 const webAppNavigation = useWebAppNavigation();
+
+const actions = ref([]);
+
+const fetchActions = async () => {
+  const currentTimers = await fetchUserTimers(); // Get timers from the server
+  actions.value = Object.keys(currentTimers).map((key) => ({
+    type: key,
+    timer: currentTimers[key].remaining,
+    isClickable: currentTimers[key].remaining === 0,
+  }));
+};
+
+fetchActions(); // Function call at initialization
+
 
 const createInvoice = async (link, type, hours, price) => {
   try {
@@ -37,7 +54,12 @@ const createInvoice = async (link, type, hours, price) => {
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({ link, type, hours, price }),
+      body: JSON.stringify({
+    link: link,
+    type: type,
+    hours: hours,
+    status: status,
+  }),
     });
 
     if (!response.ok) {
@@ -54,12 +76,17 @@ const createInvoice = async (link, type, hours, price) => {
 
 const processInvoice = async (link, type, hours, status) => {
   try {
-    const response = await fetch('/tg/processInvoice', {
+    const response = await fetch(`/tg/${link}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify({ link, type, hours, status }),
+      body: JSON.stringify({
+    link: link,
+    type: type,
+    hours: hours,
+    status: status,
+  }),
     });
 
     if (!response.ok) {
@@ -74,6 +101,12 @@ const processInvoice = async (link, type, hours, status) => {
 
 const openInvoice = async (link, type, hours, price) => {
   const result = await createInvoice(link, type, hours, price);
+  const actionTypeMapping = {
+  food: 'eat',
+  play: 'play',
+  walk: 'walk',
+  sleep: 'sleep',
+};
 
   if (result.success) {
     const invoiceLink = result.data;
@@ -83,10 +116,32 @@ const openInvoice = async (link, type, hours, price) => {
 
       await processInvoice(link, type, hours, status);
 
-      if (status === 'paid') {
-        console.log(`Timer for ${type} reduced by ${hours} hours.`);
-      } else if (status === 'cancelled') {
-        console.log('Invoice cancelled by the user.');
+
+      // ***Change status to 'paid' on production*** //
+      if (status === 'cancelled') {
+        const reduceSeconds = hours * 3600;
+
+        try {
+          // Convert actionType before calling reduceTimer
+          const mappedActionType = actionTypeMapping[type];
+          if (!mappedActionType) {
+            throw new Error(`Unknown action type: ${type}`);
+          }
+
+          await reduceTimer(mappedActionType, reduceSeconds);
+
+          // Update the local state of the timers
+          const action = actions.value.find((a) => a.type === type);
+          if (action) {
+            action.timer = Math.max(0, action.timer - reduceSeconds);
+            action.isClickable = action.timer === 0;
+          }
+        } catch (err) {
+          console.error('Error while reducing timer:', err.message);
+        }
+      // ***Change status to 'cancelled' on production*** //
+    } else if (status === 'paid') {
+        console.log('User cancelled payment')
       }
     });
   } else {
