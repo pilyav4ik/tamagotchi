@@ -71,33 +71,14 @@ class TgbotService {
         console.log('bot Launched')
     }
 
-    async upgradeToPro() {
-        let titleText = "Some Title" 
-        let descriptionText = "Some Description" 
+    async reduceTimer(titleText, descriptionText, priceLabel, priceAmount) {      
         let payload = {
             userid: 12345678,
             subscription_period: 'monthly' 
         }
         let providerToken = "" 
         let currency = "XTR"
-        let prices = [{label:"Price Label", amount:1000}]
-        let obj = {title:titleText, description:descriptionText, payload:payload, provider_token:providerToken, currency:currency, prices:prices }
-        let result = await this.bot.telegram.createInvoiceLink(obj)
-    
-        console.log('result: ', result)
-        return result
-    }
-
-    async upgradeToPro2() {
-        let titleText = "Some Title" 
-        let descriptionText = "Some Description" 
-        let payload = {
-            userid: 12345678,
-            subscription_period: 'monthly' 
-        }
-        let providerToken = "" 
-        let currency = "XTR"
-        let prices = [{label:"Price Label", amount:500}]
+        let prices = [{label:priceLabel, amount:priceAmount}]
         let obj = {title:titleText, description:descriptionText, payload:payload, provider_token:providerToken, currency:currency, prices:prices }
         let result = await this.bot.telegram.createInvoiceLink(obj)
     

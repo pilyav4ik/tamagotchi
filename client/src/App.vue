@@ -1,9 +1,7 @@
 <template>
   <div>
     <main class="game" v-if="loaded">
-      <div class="page">
         <RouterView />
-      </div>
     </main>
 
     <div

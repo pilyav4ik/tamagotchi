@@ -135,7 +135,17 @@ export default {
 
 <style scoped>
 .paid{
-    background-color: aqua;
+    height: 62px;
+    background-color: rgb(221, 169, 0);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.paid a{
+    display: contents;
 }
 button:disabled {
     opacity: 0.5;

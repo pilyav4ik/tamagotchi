@@ -329,3 +329,60 @@ export async function fetchFriendPet(friendTelegramId) {
 
   return data?.pet || null;
 }
+
+const actionTypeMapping = {
+  food: 'eat',
+  play: 'play',
+  walk: 'walk',
+  sleep: 'sleep',
+};
+
+
+export async function reduceTimer(actionType, reduceSeconds) {
+  try {
+    // Check if mapping is needed
+    const mappedActionType = actionTypeMapping[actionType] || actionType;
+
+    if (!Object.keys(actionTypeMapping).includes(actionType) && !Object.values(actionTypeMapping).includes(mappedActionType)) {
+      console.error(`Unknown action type: "${actionType}"`);
+      throw new Error('Invalid action type');
+    }
+
+    const currentTimers = await fetchUserTimers();
+    console.log('Current timers:', currentTimers);
+    console.log('Mapped action type:', mappedActionType);
+
+    if (currentTimers[mappedActionType]) {
+      const updatedRemaining = Math.max(
+        0,
+        currentTimers[mappedActionType].remaining - reduceSeconds * 1000
+      );
+
+      const { data, error } = await supabase
+        .from('users')
+        .update({
+          timers: {
+            ...currentTimers,
+            [mappedActionType]: {
+              ...currentTimers[mappedActionType],
+              remaining: updatedRemaining,
+            },
+          },
+        })
+        .eq('telegram', MY_ID);
+
+      if (error) {
+        console.error('Error reducing timer:', error);
+        throw error;
+      }
+
+      return data;
+    } else {
+      console.error(`Action type "${mappedActionType}" not found in timers.`);
+      throw new Error('Action type not found in timers.');
+    }
+  } catch (err) {
+    console.error('Unexpected error while reducing timer:', err);
+    throw err;
+  }
+}

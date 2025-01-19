@@ -1,5 +1,6 @@
 <template>
-  <div class="text-content invites">
+  <div class="page">
+    <div class="text-content invites">
     <h1>
       <span>
         Invite friends
@@ -25,6 +26,7 @@
 </ul>
   </div>
   <TheMenu />
+  </div>
 </template>
 
 <script setup>

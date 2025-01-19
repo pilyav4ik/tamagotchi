@@ -1,5 +1,6 @@
 <template>
-  <div class="text-content">
+  <div class="page">
+    <div class="text-content">
     <ul class="list">
       <Monetag />
     </ul>
@@ -7,8 +8,9 @@
     <ul class="list">
       <li class="list-item" v-for="task in sortedTasks" :key="task.id">
         <a
-  @click.prevent="task.type === 'subscription' ? checkSubscription(task) : toggleTaskStatus(task)"
-  target="_blank"
+        :href="task.url"
+        @click.prevent="task.type === 'subscription' ? checkSubscription(task) : toggleTaskStatus(task)"
+        target="_blank"
   class="list-btn"
   :class="{ done: isTaskCompleted(task), checking: checkingTaskId === task.id }"
 >
@@ -26,6 +28,7 @@
     </ul>
   </div>
   <TheMenu />
+  </div>
 </template>
 
 <script setup>
@@ -85,7 +88,7 @@ function toggleTaskStatus(task) {
       // Removing the check indicator
       checkingTaskId.value = null;
     }
-  }, 3000); // The duration matches the animation
+  }, 10000); // The duration matches the animation
 }
 
 // Load tasks on mount
@@ -96,6 +99,96 @@ onMounted(() => {
 
 
 <style scoped>
+
+.text-content{
+  padding-top: 2em;
+}
+
+.list {
+  font-family: Roboto;
+  font-size: 16px;
+  padding-top: 2em;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item i{
+  font-style: normal;
+}
+
+.list-item .task-start {
+  background-color: #ffded2;
+
+}
+
+.list-btn .amount {
+  color: #fff;
+}
+
+.list-btn.done .amount {
+  background-color: #C1A99E;
+  color: #917a71;
+  display: inline-flex;
+}
+
+.list-btn {
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #917a71;
+  color: #000;
+  text-decoration: none;
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-btn:last-of-type{
+  border-bottom: none;
+}
+
+.list-btn.done {
+  color: #917a71;
+  pointer-events: none;
+}
+
+.list-btn.done span {
+  color: #fff;
+  background-color: #d6b7ac;
+}
+
+.list-btn.done .task-start{
+  display: none;
+}
+.list-btn .task-completed{
+  display: none;
+}
+
+.list-btn.done .task-completed{
+  display: block;
+}
+
+.list-btn.done .task-start{
+  display: none;
+}
+
+.task-start, .task-completed {
+  width:56px !important;
+  height:30px !important;
+  border-radius: 30px !important;
+  padding: 5px 10px;
+}
+
+
 .text-content{
   padding-bottom: 2.5em;
 }
@@ -131,8 +224,6 @@ onMounted(() => {
 }
 
 .done {
-  text-decoration: line-through;
-  color: grey;
-  opacity: 0.7;
+  background-color: #c1a89e !important;
 }
 </style>

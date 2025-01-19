@@ -2,8 +2,21 @@ const Router = require('express')
 const router = new Router()
 const tgController = require('../controllers/tg/tg.controller')
 
-router.post('/getInvoiceLink', tgController.getInvoiceLink)
-router.post('/getInvoiceLink2', tgController.getInvoiceLink2)
 
+router.post('/getFoodInvoiceLinkOneHour', tgController.getReduceEatTimerByOneHour)
+router.post('/getFoodInvoiceLinkThreeHour', tgController.getReduceEatTimerByThreeHours)
+router.post('/getFoodInvoiceLinkEightHour', tgController.getReduceEatTimerByEightHours)
+
+router.post('/getPlayInvoiceLinkOneHour', tgController.getReducePlayTimerByOneHour)
+router.post('/getPlayInvoiceLinkThreeHour', tgController.getReducePlayTimerByThreeHours)
+router.post('/getPlayInvoiceLinkEightHour', tgController.getReducePlayTimerByEightHours)
+
+router.post('/getWalkInvoiceLinkOneHour', tgController.getReduceWalkTimerByOneHour)
+router.post('/getWalkInvoiceLinkThreeHour', tgController.getReduceWalkTimerByThreeHours)
+router.post('/getWalkInvoiceLinkEightHour', tgController.getReduceWalkTimerByEightHours)
+
+router.post('/getSleepInvoiceLinkOneHour', tgController.getReduceSleepTimerByOneHour)
+router.post('/getSleepInvoiceLinkThreeHour', tgController.getReduceSleepTimerByThreeHours)
+router.post('/getSleepInvoiceLinkEightHour', tgController.getReduceSleepTimerByEightHours)
 
 module.exports = router
