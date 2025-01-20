@@ -1,7 +1,8 @@
 <template>
   <div>
     <main class="game" v-if="loaded">
-        <RouterView />
+      <ClosingConfirmation />
+      <RouterView />
     </main>
 
     <div
@@ -40,6 +41,7 @@ import { RouterView } from "vue-router";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import bgImage from "@/assets/splash.png";
+import {ClosingConfirmation} from "vue-tg";
 
 export default {
   name: "App",
