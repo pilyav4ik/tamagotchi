@@ -132,16 +132,10 @@ async function syncTimers() {
   });
 }
 
-async function detectMobileDevice() {
-  const regex = /Android|iPhone/i;
-  isMobile.value = regex.test(navigator.userAgent);
-  console.log("mobile: " + isMobile.value);
-}
-
 onMounted(async () => {
   await fetchPetData();
   await syncTimers();
-  await detectMobileDevice();
+
   window.addEventListener('reduce-timer', (event) => {
     const { type, seconds } = event.detail;
     const action = actions.value.find((a) => a.type === type);
