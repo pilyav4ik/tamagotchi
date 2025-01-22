@@ -23,6 +23,7 @@ import { RouterLink } from 'vue-router'
     position: absolute;
     left: -2px;
     top: 50vh;
+    z-index: 10000;
     width: 60px;
     text-align: center;
 }
@@ -39,7 +40,7 @@ import { RouterLink } from 'vue-router'
 
 .buy {
     background: linear-gradient(-45deg, rgba(186,148,62,1) 0%, rgba(236,172,32,1) 20%, rgba(186,148,62,1) 39%, rgba(249,244,180,1) 50%, rgba(186,148,62,1) 60%, rgba(236,172,32,1) 80%, rgba(186,148,62,1) 100%);
-  -webkit-background-clip:background-clip;
+  background-clip:background-clip;
   -webkit-text-fill-color: black;	
   animation: shine 3s infinite;
   background-size: 350%;
