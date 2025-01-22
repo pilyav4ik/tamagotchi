@@ -41,7 +41,6 @@ import { RouterView } from "vue-router";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import bgImage from "@/assets/splash.png";
-import {ClosingConfirmation} from "vue-tg";
 
 export default {
   name: "App",
@@ -125,6 +124,7 @@ import { useAppStore } from "@/stores/app";
 import { useTelegram } from "@/services/telegram";
 import { fetchPet } from "@/api/app";
 import { useRouter } from "vue-router";
+import { ClosingConfirmation } from "vue-tg";
 
 const loaded = ref(false);
 const app = useAppStore();
@@ -143,7 +143,7 @@ app.init(urlParams.get("ref")).then(async () => {
 });
 
 onMounted(() => {
-  tg.ready();
-  tg.expand();
+  window.Telegram.WebApp.ready();
+  window.Telegram.WebApp.expand();
 });
 </script>

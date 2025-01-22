@@ -17,7 +17,7 @@ class TgbotService {
             ctx.reply(
                 'Hello! Press to start the app',
                 Markup.inlineKeyboard([
-                    Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}`),
+                    Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}&mode=fullscreen`),
                 ])
             );
         });
