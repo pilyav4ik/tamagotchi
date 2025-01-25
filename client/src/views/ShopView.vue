@@ -11,7 +11,7 @@
           <div class="service">
             <img :src="item.serviceImg" alt="Service Image">
           </div>
-          <div>{{ item.name }}</div>
+          <div class="name">{{ item.name }}</div>
           <div class="price-block">
             <img :src="item.priceImg" alt="Price Icon"> {{ item.price }}
           </div>
@@ -151,17 +151,17 @@ const openInvoice = async (link, type, hours, price) => {
 
 const items = [
   { id: 1, name: 'Food -30m', serviceImg: '/assets/food.png', priceImg: '/assets/tgstar.png', price: 50, type: 'food', hours: 1, link: 'getFoodInvoiceLinkOneHour' },
-  { id: 2, name: 'Food -1h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 100, type: 'food', hours: 3, link: 'getFoodInvoiceLinkThreeHour' },
-  { id: 3, name: 'Food -2h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 150, type: 'food', hours: 8, link: 'getFoodInvoiceLinkEightHour' },
-  { id: 4, name: 'Play -30m', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 50, type: 'play', hours: 1, link: 'getPlayInvoiceLinkOneHour' },
-  { id: 5, name: 'Play -2h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 100, type: 'play', hours: 3, link: 'getPlayInvoiceLinkThreeHour' },
-  { id: 6, name: 'Play -3h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 150, type: 'play', hours: 8, link: 'getPlayInvoiceLinkEightHour' },
-  { id: 7, name: 'Walk -30m', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 50, type: 'walk', hours: 1, link: 'getWalkInvoiceLinkOneHour' },
-  { id: 8, name: 'Walk -1h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 100, type: 'walk', hours: 3, link: 'getWalkInvoiceLinkThreeHour' },
-  { id: 9, name: 'Walk -2h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 150, type: 'walk', hours: 8, link: 'getWalkInvoiceLinkEightHour' },
-  { id: 10, name: 'Sleep -1h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 50, type: 'sleep', hours: 1, link: 'getSleepInvoiceLinkOneHour' },
-  { id: 11, name: 'Sleep -3h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 100, type: 'sleep', hours: 3, link: 'getSleepInvoiceLinkThreeHour' },
-  { id: 12, name: 'Sleep -4h', serviceImg: '/assets/service.png', priceImg: '/assets/tgstar.png', price: 150, type: 'sleep', hours: 8, link: 'getSleepInvoiceLinkEightHour' },
+  { id: 2, name: 'Food -1h', serviceImg: '/assets/food.png', priceImg: '/assets/tgstar.png', price: 100, type: 'food', hours: 3, link: 'getFoodInvoiceLinkThreeHour' },
+  { id: 3, name: 'Food -2h', serviceImg: '/assets/food.png', priceImg: '/assets/tgstar.png', price: 150, type: 'food', hours: 8, link: 'getFoodInvoiceLinkEightHour' },
+  { id: 4, name: 'Play -30m', serviceImg: '/assets/play.png', priceImg: '/assets/tgstar.png', price: 50, type: 'play', hours: 1, link: 'getPlayInvoiceLinkOneHour' },
+  { id: 5, name: 'Play -2h', serviceImg: '/assets/play.png', priceImg: '/assets/tgstar.png', price: 100, type: 'play', hours: 3, link: 'getPlayInvoiceLinkThreeHour' },
+  { id: 6, name: 'Play -3h', serviceImg: '/assets/play.png', priceImg: '/assets/tgstar.png', price: 150, type: 'play', hours: 8, link: 'getPlayInvoiceLinkEightHour' },
+  { id: 7, name: 'Walk -30m', serviceImg: '/assets/walk.png', priceImg: '/assets/tgstar.png', price: 50, type: 'walk', hours: 1, link: 'getWalkInvoiceLinkOneHour' },
+  { id: 8, name: 'Walk -1h', serviceImg: '/assets/walk.png', priceImg: '/assets/tgstar.png', price: 100, type: 'walk', hours: 3, link: 'getWalkInvoiceLinkThreeHour' },
+  { id: 9, name: 'Walk -2h', serviceImg: '/assets/walk.png', priceImg: '/assets/tgstar.png', price: 150, type: 'walk', hours: 8, link: 'getWalkInvoiceLinkEightHour' },
+  { id: 10, name: 'Sleep -1h', serviceImg: '/assets/sleeping.png', priceImg: '/assets/tgstar.png', price: 50, type: 'sleep', hours: 1, link: 'getSleepInvoiceLinkOneHour' },
+  { id: 11, name: 'Sleep -3h', serviceImg: '/assets/sleeping.png', priceImg: '/assets/tgstar.png', price: 100, type: 'sleep', hours: 3, link: 'getSleepInvoiceLinkThreeHour' },
+  { id: 12, name: 'Sleep -4h', serviceImg: '/assets/sleeping.png', priceImg: '/assets/tgstar.png', price: 150, type: 'sleep', hours: 8, link: 'getSleepInvoiceLinkEightHour' },
 ];
 
 </script>
@@ -199,8 +199,7 @@ const items = [
   font-weight: bold;
   color: white;
   background-color: #171f2a;
-  padding: 10px;
-  height: 30vh;
+  padding: 40px 10px 10px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -235,8 +234,8 @@ const items = [
 
 
 .items-container .item {
-  width: 100px;
-  height: 100px;
+  width: 30vw;
+  min-height: 120px;
   background-color: #171f2a;
   border-radius: 5px;
   display: flex;
@@ -245,6 +244,7 @@ const items = [
   color: white;
   flex-wrap: wrap;
   flex-direction: column;
+  font-family: "Calibri";
 }
 
 .item .price-block {
@@ -264,14 +264,15 @@ const items = [
 }
 .item .service>img {
   width: 40px;
-  height: 40px;
-
-
 }
 
 .item .price-block>img {
   width: 13px;
   height: 13px;
   margin-right: 5px;
+}
+
+.item .name{
+  font-size: 1.2em;
 }
 </style>
