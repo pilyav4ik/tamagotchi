@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite -d --host",
-    "ngrok": "ngrok http --url saving-innocent-gannet.ngrok-free.app 5173",
+    "ngrok": "ngrok http --url dynamic-master-lion.ngrok-free.app 5173",
     "build": "vite build",
     "preview": "vite preview"
   },
