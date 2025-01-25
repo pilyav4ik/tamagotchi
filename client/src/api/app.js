@@ -315,19 +315,22 @@ export async function saveWalletAddress(wallet) {
 
 
 
-export async function fetchFriendPet(friendTelegramId) {
+export async function fetchFriendData(friendTelegramId) {
   const { data, error } = await supabase
     .from('users')
-    .select('pet')
+    .select('pet, score')
     .eq('telegram', friendTelegramId)
     .single();
 
   if (error) {
-    console.error('Error fetching friend pet:', error);
-    return null;
+    console.error('Error fetching friend data:', error);
+    return { pet: null, score: null };
   }
 
-  return data?.pet || null;
+  return {
+    pet: data?.pet || null,
+    score: data?.score || null,
+  };
 }
 
 const actionTypeMapping = {
