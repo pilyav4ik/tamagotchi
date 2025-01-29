@@ -63,6 +63,13 @@ const router = createRouter({
       screenOrientation: 'autoRotate:disabled', 
       meta: { bodyClass: 'shop-bg' }, 
     },
+    {
+      path: '/ton',
+      name: 'ton',
+      component: () => import('../views/WalletView.vue'),
+      screenOrientation: 'autoRotate:disabled', 
+      meta: { bodyClass: 'shop-bg' }, 
+    },
   ],
 });
 

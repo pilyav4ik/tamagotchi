@@ -1,6 +1,12 @@
 <template>
   <div class="page">
     <div class="text-content">
+      <ul class="list">
+      <li class="list-item">
+        <TonConnectComponent/>
+      </li>
+    </ul>
+
     <ul class="list">
       <Monetag />
     </ul>
@@ -41,6 +47,8 @@ import { onMounted, computed } from 'vue'
 import { ref } from 'vue';
 import TheMenu from '../components/TheMenu.vue'
 import Monetag from '@/components/Monetag.vue'
+import TonConnect from '../components/TonDapp.vue'
+import TonConnectComponent from '@/components/TonConnectComponent.vue';
 
 const { tg } = useTelegram()
 const app = useAppStore()
