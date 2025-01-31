@@ -23,6 +23,28 @@ class TgbotService {
                         [Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}&mode=fullscreen`)]
                     ])
                 );
+
+                //  Run an interval that sends a message every 24 hours
+                const intervalId = setInterval(async () => {
+                    try {
+                        await ctx.reply("Don't forget your pet to win TON in the weekly tournament. You're close to winning! ");
+                        await ctx.replyWithPhoto(
+                            { url: 'https://raw.githubusercontent.com/pilyav4ik/mediafortg/refs/heads/main/tiger.png' },
+                            Markup.inlineKeyboard([
+                                [Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}&mode=fullscreen`)]
+                            ])
+                        );
+                    } catch (error) {
+                        console.error("Error sending automated message:", error);
+                        clearInterval(intervalId);
+                    }
+                }, 172800000); // 48 hours in milliseconds
+
+                // You can add a command to stop if you need to
+                this.bot.command("stop", (ctx) => {
+                    clearInterval(intervalId);
+                    ctx.reply("Automatic messages stopped.");
+                });
             } catch (error) {
                 console.error('Error sending message:', error);
             }
