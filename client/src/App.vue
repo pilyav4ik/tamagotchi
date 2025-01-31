@@ -1,4 +1,5 @@
 <template>
+      <TonConnectUIProvider :options="options">
   <div>
     <main class="game" v-if="loaded">
       <ClosingConfirmation />
@@ -33,6 +34,7 @@
       </div>
     </div>
   </div>
+</TonConnectUIProvider>
 </template>
 
 <script>
@@ -125,10 +127,13 @@ import { useTelegram } from "@/services/telegram";
 import { fetchPet } from "@/api/app";
 import { useRouter } from "vue-router";
 import { ClosingConfirmation } from "vue-tg";
+import { TonConnectUIProvider } from '@townsquarelabs/ui-vue'
 
 const loaded = ref(false);
 const app = useAppStore();
 const router = useRouter();
+
+const options = ref({manifestUrl: 'https://raw.githubusercontent.com/roma-marshall/web3-ton-dapp/refs/heads/main/tonconnect-manifest.json'})
 
 const { tg } = useTelegram();
 

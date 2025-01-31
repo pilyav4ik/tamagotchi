@@ -6,7 +6,7 @@
       <ScoreProgress />
       <div class="header">
         <img src="../assets/coin.png" alt="coin" />
-        <h2 class="score" id="score">{{ (store.score / 2) }}</h2>
+        <h2 class="score" id="score">{{formattedScore}}</h2>
       </div>
     </div>
     <div class="game">
@@ -35,7 +35,7 @@
 
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import ScoreProgress from '@/components/ScoreProgress.vue';
 import ShopService from '@/components/ShopButton.vue';
 import { useScoreStore } from '@/stores/score';
@@ -53,6 +53,12 @@ import TheMenu from '@/components/TheMenu.vue';
 
 const img = ref(null);
 const store = useScoreStore();
+const formattedScore = computed(() => {
+  const score = store.score;
+  if (score >= 1000000) return (score / 1000000).toFixed(1) + 'M';
+  if (score >= 1000) return (score / 1000).toFixed(1) + 'K';
+  return score;
+});
 
 const imgSrc = ref(null);
 const pet = ref(null);

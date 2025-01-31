@@ -13,15 +13,21 @@ class TgbotService {
 
 
         // Start command with inline keyboard button
-        this.bot.command('start', (ctx) => {
-            ctx.reply(
-                'Hello! Press to start the app',
-                Markup.inlineKeyboard([
-                    Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}&mode=fullscreen`),
-                ])
-            );
+        this.bot.command('start', async (ctx) => {
+            try {
+                await ctx.reply('Welcome! Train your pet to the max and get generous prizes from TON');
+        
+                await ctx.replyWithPhoto(
+                    { url: 'https://raw.githubusercontent.com/pilyav4ik/mediafortg/refs/heads/main/tiger.png' },
+                    Markup.inlineKeyboard([
+                        [Markup.button.webApp('Open mini app', `${this.webAppUrl}?ref=${ctx.payload}&mode=fullscreen`)]
+                    ])
+                );
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
         });
-
+        
 
 
         this.bot.on('pre_checkout_query', async ctx => {
