@@ -205,7 +205,7 @@ onUnmounted(() => {
 
 .enable {
   color: antiquewhite;
-  background-color: black;
+  background-color: #2b221d;
 }
 .enable:active {
   background-color: darkgray;
