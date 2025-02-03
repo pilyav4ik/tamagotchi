@@ -237,21 +237,6 @@ main{
   margin-bottom: 1rem;
 }
 
-.enable{
-  color: #000;
-}
-
-
-.walk, .play{
-  position: relative;
-  top: 1em;
-}
-
-.button-pay{
-  border: 1px solid #000;
-  padding: 4px 9px;
-  border-radius: 80px;
-}
 
 .select-pet-bg {
 background: rgb(2,0,36);

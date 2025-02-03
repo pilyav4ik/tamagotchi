@@ -17,6 +17,7 @@
     "@townsquarelabs/ui-vue": "^2.0.10-beta.0",
     "buffer": "^6.0.3",
     "canvas-confetti": "^1.9.3",
+    "gsap": "^3.12.7",
     "lodash.debounce": "^4.0.8",
     "ngrok": "^5.0.0-beta.2",
     "pinia": "^2.1.7",
@@ -25,7 +26,7 @@
     "tonweb": "^0.0.66",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5",
-    "vue-tg": "^0.6.1",
+    "vue-tg": "^0.9.0-beta.2",
     "web-animations-js": "^2.3.2"
   },
   "devDependencies": {
