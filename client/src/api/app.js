@@ -389,3 +389,13 @@ export async function reduceTimer(actionType, reduceSeconds) {
     throw err;
   }
 }
+
+
+
+export async function getPromotions() {
+  const { data } = await supabase
+    .from('promo')
+    .select('*');
+
+  return data;
+}

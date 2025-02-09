@@ -131,6 +131,26 @@ async getReduceSleepTimerByEightHours(req, res) {
     }
 }
 
+
+async getPromotionOne(req, res) {
+    let result = await tgBotService.reduceTimer("Main Action", 'Description', 'Price Label', 500)
+    if (result) {
+        res.json({success:true, data:result})
+    }
+    else {
+        res.json({success:false, message: `Can't get invoice link: ${result}`})
+    }
+}
+
+async getPromotionTwo(req, res) {
+    let result = await tgBotService.reduceTimer("Two Action", 'Description', 'Price Label', 1000)
+    if (result) {
+        res.json({success:true, data:result})
+    }
+    else {
+        res.json({success:false, message: `Can't get invoice link: ${result}`})
+    }
+}
 }
 
 module.exports = new TgController()

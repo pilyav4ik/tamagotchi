@@ -19,4 +19,7 @@ router.post('/getSleepInvoiceLinkOneHour', tgController.getReduceSleepTimerByOne
 router.post('/getSleepInvoiceLinkThreeHour', tgController.getReduceSleepTimerByThreeHours)
 router.post('/getSleepInvoiceLinkEightHour', tgController.getReduceSleepTimerByEightHours)
 
+router.post('/getPromotionOne', tgController.getPromotionOne)
+router.post('/getPromotionTwo', tgController.getPromotionTwo)
+
 module.exports = router
