@@ -51,6 +51,13 @@ const router = createRouter({
       meta: { bodyClass: 'leaderboard-bg' },  
     },
     {
+      path: '/weeklyleaderboard',
+      name: 'weeklyleaderboard',
+      component: () => import('../views/WeeklyLeaderboardView.vue'),
+      screenOrientation: 'autoRotate:disabled',
+      meta: { bodyClass: 'leaderboard-bg' },  
+    },
+    {
       path: '/wallet',
       name: 'wallet',
       component: () => import('../views/WalletView.vue'),

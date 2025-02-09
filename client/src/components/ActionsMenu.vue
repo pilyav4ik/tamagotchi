@@ -75,6 +75,7 @@ export default {
       if (!action.isClickable) return;
 
       store.add(action.score);
+      store.addWeekly(action.score);
       const startTime = Date.now();
       const remainingTime = action.duration * 1000;
 
