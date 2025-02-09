@@ -2,6 +2,7 @@
   <div class="page">
     <div class="game-container">
     <ShopService/>
+    <Promotion/>
     <div class="head">
       <ScoreProgress />
       <div class="header">
@@ -38,6 +39,7 @@ import onehorn from '@/assets/pets/onehorn.webp';
 import tiger from '@/assets/pets/tiger.webp';
 import TheMenu from '@/components/TheMenu.vue';
 import ActionsMenu from '@/components/ActionsMenu.vue';
+import Promotion from '@/components/Promotion.vue';
 
 const img = ref(null);
 const store = useScoreStore();

@@ -21,7 +21,7 @@ import { RouterLink } from 'vue-router'
 <style lang="css" >
 .buy{
     position: absolute;
-    left: -2px;
+    left: 8px;
     top: 50vh;
     z-index: 10000;
     width: 60px;
@@ -39,13 +39,19 @@ import { RouterLink } from 'vue-router'
 }
 
 .buy {
-    background: linear-gradient(-45deg, rgba(186,148,62,1) 0%, rgba(236,172,32,1) 20%, rgba(186,148,62,1) 39%, rgba(249,244,180,1) 50%, rgba(186,148,62,1) 60%, rgba(236,172,32,1) 80%, rgba(186,148,62,1) 100%);
-  background-clip:background-clip;
-  -webkit-text-fill-color: black;	
-  animation: shine 3s infinite;
-  background-size: 350%;
-  background-position: left;
-  border-radius: 0 100px 100px 0;
+    background: linear-gradient(-45deg, rgba(186, 148, 62, 1) 0%, rgba(236, 172, 32, 1) 20%, rgba(186, 148, 62, 1) 39%, rgba(249, 244, 180, 1) 50%, rgba(186, 148, 62, 1) 60%, rgba(236, 172, 32, 1) 80%, rgba(186, 148, 62, 1) 100%);
+    background-clip: background-clip;
+    -webkit-text-fill-color: black;
+    animation: shine 3s infinite;
+    background-size: 350%;
+    background-position: left;
+    border-radius: 15px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 @keyframes shine {
   to{background-position: right}
