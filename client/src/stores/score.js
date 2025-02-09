@@ -42,6 +42,7 @@ function computeLevelByScore(score) {
 export const useScoreStore = defineStore('score', {
   state: () => ({
     score: 0,
+    weeklyScore: 0,
   }),
   getters: {
     level: (state) => computeLevelByScore(state.score),
@@ -59,6 +60,10 @@ export const useScoreStore = defineStore('score', {
     },
     setScore(score) {
       this.score = score;
+    },
+    addWeekly(weekly_score) {
+      this.weeklyScore += weekly_score;
+      debouncedUpdateScore(this.weeklyScore);
     },
     startAutoIncrement() {
       this.autoIncrementInterval = this.add(1); // Increase the score by 1 every minute

@@ -1,9 +1,9 @@
 <template>
   <div class="page">
+<LeaderboardMenu/>
     <div class="leaderboard">
-    <h2>🏆 Leaderboard</h2>
     <div class="card-list">
-      <div v-for="(user, index) in mockLeaderboard" :key="user.telegram" class="card">
+      <div v-for="(user, index) in leaderboardStore.leaderboard" :key="user.telegram" class="card">
         <div class="rank">
           <span v-if="index === 0" class="medal gold">🥇</span>
           <span v-else-if="index === 1" class="medal silver">🥈</span>
@@ -25,12 +25,13 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import TheMenu from '../components/TheMenu.vue';
-import { fetchLeaderboard } from '@/api/app';
+import LeaderboardMenu from '@/components/LeaderboardMenu.vue';
+import { useLeaderboardStore } from '@/stores/leaderboard';
 
-const leaderboard = ref([]);
+const leaderboardStore = useLeaderboardStore();
 
 onMounted(async () => {
-  leaderboard.value = await fetchLeaderboard();
+  await leaderboardStore.loadLeaderboard();
 });
 
 
@@ -60,12 +61,8 @@ const mockLeaderboard = [
   margin: 20px auto;
   width: 100%;
   color: #ffffff;
-  padding-top: 3em;
 }
 
-.leaderboard h2 {
-  margin-bottom: 24px;
-}
 .card-list {
   display: flex;
   flex-direction: column;
@@ -77,7 +74,7 @@ const mockLeaderboard = [
   align-items: center;
   justify-content: space-between;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: #816d65;
 }

@@ -35,6 +35,7 @@ export async function getOrCreateUser(refId = null, userName = null) {
     friends: {},
     tasks: {},
     score: 0,
+    weekly_score: 0,
     pet: {
       id: null,
       name: null,
@@ -101,6 +102,10 @@ export async function updateScore(score) {
   await supabase.from('users').update({ score }).eq('telegram', MY_ID)
 }
 
+export async function updateWeeklyScore(weekly_score) {
+  await supabase.from('users').update({ weekly_score }).eq('telegram', MY_ID)
+}
+
 export async function registerRef(userName, refId) {
   const { data } = await supabase.from('users').select().eq('telegram', +refId)
 
@@ -125,6 +130,7 @@ export async function completeTask(user, task) {
     .update({
       tasks: { ...user.tasks, [task.id]: true },
       score: newScore,
+      weekly_score
     })
     .eq('telegram', MY_ID)
 }
@@ -205,6 +211,30 @@ export async function fetchLeaderboard() {
   });
 
   return leaderboard;
+}
+
+
+export async function fetchWeeklyLeaderboard() {
+  const { data: users, error } = await supabase
+    .from('users')
+    .select('first_name, weekly_score')
+    .order('weekly_score', { ascending: false }) 
+    .limit(100);
+
+  if (error) {
+    console.error('Error when retrieving leaderboard data:', error);
+    return [];
+  }
+
+  
+  const weeklyLeaderboard = users.map((player) => {
+    return {
+      ...player,
+      username: getUserNameById(player.telegram),
+    };
+  });
+
+  return weeklyLeaderboard;
 }
 
 

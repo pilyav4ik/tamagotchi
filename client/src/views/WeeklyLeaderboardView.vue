@@ -1,0 +1,104 @@
+<template>
+  <div class="page"> 
+    <LeaderboardMenu />
+    <div class="leaderboard">
+
+      <div class="card-list">
+        <div v-for="(user, index) in leaderboardStore.weeklyLeaderboard" :key="user.telegram" class="card">
+          <div class="rank">
+            <span v-if="index === 0" class="medal gold">🥇</span>
+            <span v-else-if="index === 1" class="medal silver">🥈</span>
+            <span v-else-if="index === 2" class="medal bronze">🥉</span>
+            <span v-else>{{ index + 1 }}</span>
+          </div>
+          <div class="user-info">
+            <div class="user-name"><b>{{ user.first_name || 'Loading...' }}</b></div>
+          </div>
+          <div class="user-score">{{ user.weekly_score }}</div>
+        </div>
+      </div>
+    </div>
+    <TheMenu />
+  </div>
+</template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { useLeaderboardStore } from '@/stores/leaderboard';
+import TheMenu from '../components/TheMenu.vue';
+import LeaderboardMenu from '@/components/LeaderboardMenu.vue';
+
+const leaderboardStore = useLeaderboardStore();
+
+onMounted(async () => {
+  await leaderboardStore.loadWeeklyLeaderboard();
+});
+</script>
+
+<style scoped>
+.leaderboard {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px auto;
+  width: 100%;
+  color: #ffffff;
+
+}
+
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #816d65;
+}
+
+.rank {
+  font-size: 1rem;
+  width: 40px;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.medal.gold {
+  color: #FFD700;
+}
+
+.medal.silver {
+  color: #C0C0C0;
+}
+
+.medal.bronze {
+  color: #CD7F32;
+}
+
+.user-info {
+  flex: 1;
+  text-align: left;
+  padding-left: 12px;
+}
+
+.user-name {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.user-score {
+  font-size: 0.9rem;
+  color: #ffffff;
+  background-color: #CD7F32;
+  min-width: 3em;
+  border-radius: 100px;
+  padding: 0.2em 0.6em;
+}
+
+</style>
